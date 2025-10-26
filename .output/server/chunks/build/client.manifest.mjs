@@ -73,7 +73,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "BmLHXVLd.js",
+    "file": "D36VKKaK.js",
     "name": "entry",
     "src": "../node_modules/nuxt/dist/app/entry.js",
     "isEntry": true,
@@ -2240,6 +2240,18 @@ const client_manifest = {
       "../node_modules/nuxt/dist/app/entry.js"
     ]
   },
+  "_B22FnNhr.js": {
+    "resourceType": "script",
+    "module": true,
+    "prefetch": true,
+    "preload": true,
+    "file": "B22FnNhr.js",
+    "name": "PasswordInput",
+    "imports": [
+      "../node_modules/primevue/password/index.mjs",
+      "../node_modules/nuxt/dist/app/entry.js"
+    ]
+  },
   "_B4aQBNUl.js": {
     "resourceType": "script",
     "module": true,
@@ -2486,18 +2498,6 @@ const client_manifest = {
       "_DBCFK9xT.js"
     ]
   },
-  "_DTJgCTdj.js": {
-    "resourceType": "script",
-    "module": true,
-    "prefetch": true,
-    "preload": true,
-    "file": "DTJgCTdj.js",
-    "name": "zod",
-    "imports": [
-      "../node_modules/primevue/password/index.mjs",
-      "../node_modules/nuxt/dist/app/entry.js"
-    ]
-  },
   "_DXU6A6-k.js": {
     "resourceType": "script",
     "module": true,
@@ -2661,14 +2661,14 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "7gFrSq4h.js",
+    "file": "DJIsaCpn.js",
     "name": "index",
     "src": "pages/index.vue",
     "isDynamicEntry": true,
     "imports": [
       "_C7UZOFcm.js",
       "_B4aQBNUl.js",
-      "_DTJgCTdj.js",
+      "_B22FnNhr.js",
       "_Bc74I3q8.js",
       "../node_modules/primevue/floatlabel/index.mjs",
       "../node_modules/nuxt/dist/app/entry.js",
@@ -2689,8 +2689,8 @@ const client_manifest = {
       "signin.CrmIRP7C.svg"
     ]
   },
-  "index.a-vucRYw.css": {
-    "file": "index.a-vucRYw.css",
+  "index.D5NhjpMa.css": {
+    "file": "index.D5NhjpMa.css",
     "resourceType": "style",
     "prefetch": true,
     "preload": true
@@ -2706,7 +2706,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "P8ZzzjzH.js",
+    "file": "Cl31yrFA.js",
     "name": "signup",
     "src": "pages/signup.vue",
     "isDynamicEntry": true,
@@ -2714,7 +2714,7 @@ const client_manifest = {
       "_C7UZOFcm.js",
       "_B4aQBNUl.js",
       "_CjD-GriD.js",
-      "_DTJgCTdj.js",
+      "_B22FnNhr.js",
       "_Bc74I3q8.js",
       "../node_modules/primevue/floatlabel/index.mjs",
       "../node_modules/nuxt/dist/app/entry.js",
@@ -2736,8 +2736,8 @@ const client_manifest = {
       "signup.BNuPOivd.svg"
     ]
   },
-  "signup.C5KvS4Rz.css": {
-    "file": "signup.C5KvS4Rz.css",
+  "signup.D8W3pc9w.css": {
+    "file": "signup.D8W3pc9w.css",
     "resourceType": "style",
     "prefetch": true,
     "preload": true

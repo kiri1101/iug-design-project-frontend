@@ -1,6 +1,5 @@
 import { _ as _sfc_main$1 } from './Logo-NZhtFUeU.mjs';
-import { _ as _sfc_main$1$1, a as _sfc_main$3 } from './PrimaryButton-Cfud3OcP.mjs';
-import { _ as _sfc_main$2 } from './NumberMask-BUpr8p56.mjs';
+import { _ as _sfc_main$1$1, a as _sfc_main$2 } from './PrimaryButton-Cfud3OcP.mjs';
 import { _ as __nuxt_component_3 } from './PasswordInput-DJFvgULl.mjs';
 import { _ as __nuxt_component_0 } from './nuxt-link-DAxd7mNB.mjs';
 import script from './index-C8FqXNJY.mjs';
@@ -19,9 +18,8 @@ import './index-BUYaRu2x.mjs';
 import './index-B-PmSPp4.mjs';
 import '@primeuix/styles/badge';
 import '@primeuix/styles/button';
-import './index-BwvaH2Tm.mjs';
-import '@primeuix/utils/dom';
 import './index-DLxyqjYf.mjs';
+import '@primeuix/utils/dom';
 import '@primeuix/utils/zindex';
 import './index-1v7fOn3J.mjs';
 import './index-KjzSvJaZ.mjs';
@@ -135,9 +133,9 @@ import 'deep-pick-omit';
 import '@primeuix/styles/base';
 import '@primeuix/utils/uuid';
 
-const _imports_0 = "" + __buildAssetsURL("signup.BNuPOivd.svg");
+const _imports_0 = "" + __buildAssetsURL("signin.CrmIRP7C.svg");
 const _sfc_main = {
-  __name: "signup",
+  __name: "index",
   __ssrInlineRender: true,
   setup(__props) {
     const config = useRuntimeConfig();
@@ -145,129 +143,53 @@ const _sfc_main = {
     useAuthStore();
     useNotify();
     const form = ref({
-      firstName: "",
-      lastName: "",
-      mailingAddress: "",
-      phoneNumber: "",
-      secret: "",
-      secret_confirmation: ""
+      pseudo: "",
+      secret: ""
     });
+    const invalidInput = ref({
+      pseudo: false,
+      secret: false
+    });
+    ref([]);
     const isLoading = ref(false);
     const year = (/* @__PURE__ */ new Date()).getFullYear();
     return (_ctx, _push, _parent, _attrs) => {
       const _component_svg_logo = _sfc_main$1;
       const _component_FloatLabel = script;
       const _component_input_text_input = _sfc_main$1$1;
-      const _component_input_number_mask = _sfc_main$2;
       const _component_input_password_input = __nuxt_component_3;
       const _component_nuxt_link = __nuxt_component_0;
-      const _component_button_primary_button = _sfc_main$3;
+      const _component_button_primary_button = _sfc_main$2;
       _push(`<main${ssrRenderAttrs(mergeProps({
         class: "grid h-full md:grid-cols-2 bg-signup-mobile-logo md:bg-none",
         "aria-label": "Landing page"
-      }, _attrs))} data-v-d2727363><section class="flex-col hidden px-2 text-white md:flex bg-emerald-600" data-v-d2727363><div class="flex flex-col items-center justify-center space-y-5 grow" data-v-d2727363><p class="px-4 text-3xl font-semibold text-center lg:text-4xl" data-v-d2727363> Begin your journey with some great teams </p><img${ssrRenderAttr("src", _imports_0)} class="object-contain object-center size-96" alt="Marum signup illustration" data-v-d2727363></div><p class="flex justify-between py-1 text-sm" data-v-d2727363><span data-v-d2727363>© ${ssrInterpolate(unref(year))} ${ssrInterpolate(unref(config).public.appName)}</span><span data-v-d2727363>All rights reserved</span></p></section><section class="flex items-center bg-signup-mobile-shape" aria-label="signin form lane" data-v-d2727363><div class="w-full max-w-md pb-4 mx-auto shadow rounded-xl bg-white/90 md:py-0 md:shadow-none md:bg-inherit shadow-gray-700" data-v-d2727363><div class="grid items-end justify-center h-20 md:h-36" data-v-d2727363>`);
+      }, _attrs))} data-v-9fae8510><section class="flex-col hidden px-2 text-white md:flex bg-emerald-600" data-v-9fae8510><div class="flex flex-col items-center justify-center space-y-5 grow" data-v-9fae8510><p class="px-4 text-3xl font-semibold text-center lg:text-4xl" data-v-9fae8510> Join us and supercharge the next generation of software </p><img${ssrRenderAttr("src", _imports_0)} class="object-contain object-center size-96" alt="Marum signup illustration" data-v-9fae8510></div><p class="flex justify-between py-1 text-sm" data-v-9fae8510><span data-v-9fae8510>© ${ssrInterpolate(unref(year))} ${ssrInterpolate(unref(config).public.appName)}</span><span data-v-9fae8510>All rights reserved</span></p></section><section class="flex items-center bg-signup-mobile-shape" aria-label="signin form lane" data-v-9fae8510><div class="w-full max-w-md pb-4 mx-auto shadow rounded-xl bg-white/90 md:py-0 md:shadow-none md:bg-inherit shadow-gray-700" data-v-9fae8510><div class="grid items-end justify-center h-20 md:h-36" data-v-9fae8510>`);
       _push(ssrRenderComponent(_component_svg_logo, {
         width: "w-10 md:w-12",
         height: "h-24 md:h-28"
       }, null, _parent));
-      _push(`</div><form class="px-3 mt-7 space-y-7" data-v-d2727363><p class="text-xl font-semibold text-center text-gray-600 md:text-2xl" data-v-d2727363> Sign In </p><div class="space-y-5" data-v-d2727363>`);
+      _push(`</div><form class="px-3 mt-7 space-y-7" data-v-9fae8510><p class="text-xl font-semibold text-center text-gray-600 md:text-2xl" data-v-9fae8510> Sign In </p><div class="space-y-5" data-v-9fae8510>`);
       _push(ssrRenderComponent(_component_FloatLabel, { variant: "on" }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
             _push2(ssrRenderComponent(_component_input_text_input, {
-              id: "firstName",
-              modelValue: unref(form).firstName,
-              "onUpdate:modelValue": ($event) => unref(form).firstName = $event,
-              autocomplete: "off"
-            }, null, _parent2, _scopeId));
-            _push2(`<label for="firstName" data-v-d2727363${_scopeId}> First Name </label>`);
-          } else {
-            return [
-              createVNode(_component_input_text_input, {
-                id: "firstName",
-                modelValue: unref(form).firstName,
-                "onUpdate:modelValue": ($event) => unref(form).firstName = $event,
-                autocomplete: "off"
-              }, null, 8, ["modelValue", "onUpdate:modelValue"]),
-              createVNode("label", { for: "firstName" }, " First Name ")
-            ];
-          }
-        }),
-        _: 1
-      }, _parent));
-      _push(ssrRenderComponent(_component_FloatLabel, { variant: "on" }, {
-        default: withCtx((_, _push2, _parent2, _scopeId) => {
-          if (_push2) {
-            _push2(ssrRenderComponent(_component_input_text_input, {
-              id: "lastName",
-              modelValue: unref(form).lastName,
-              "onUpdate:modelValue": ($event) => unref(form).lastName = $event,
+              id: "email",
+              modelValue: unref(form).pseudo,
+              "onUpdate:modelValue": ($event) => unref(form).pseudo = $event,
               autocomplete: "off",
-              invalid: _ctx.invalidInput.lastName
+              invalid: unref(invalidInput).fname
             }, null, _parent2, _scopeId));
-            _push2(`<label for="lastName" data-v-d2727363${_scopeId}> Last Name </label>`);
+            _push2(`<label for="phone" data-v-9fae8510${_scopeId}> Email address </label>`);
           } else {
             return [
               createVNode(_component_input_text_input, {
-                id: "lastName",
-                modelValue: unref(form).lastName,
-                "onUpdate:modelValue": ($event) => unref(form).lastName = $event,
+                id: "email",
+                modelValue: unref(form).pseudo,
+                "onUpdate:modelValue": ($event) => unref(form).pseudo = $event,
                 autocomplete: "off",
-                invalid: _ctx.invalidInput.lastName
+                invalid: unref(invalidInput).fname
               }, null, 8, ["modelValue", "onUpdate:modelValue", "invalid"]),
-              createVNode("label", { for: "lastName" }, " Last Name ")
-            ];
-          }
-        }),
-        _: 1
-      }, _parent));
-      _push(ssrRenderComponent(_component_FloatLabel, { variant: "on" }, {
-        default: withCtx((_, _push2, _parent2, _scopeId) => {
-          if (_push2) {
-            _push2(ssrRenderComponent(_component_input_text_input, {
-              id: "mailingAddress",
-              modelValue: unref(form).mailingAddress,
-              "onUpdate:modelValue": ($event) => unref(form).mailingAddress = $event,
-              type: "email",
-              autocomplete: "off",
-              invalid: _ctx.invalidInput.mailingAddress
-            }, null, _parent2, _scopeId));
-            _push2(`<label for="mailingAddress" data-v-d2727363${_scopeId}> Email Address </label>`);
-          } else {
-            return [
-              createVNode(_component_input_text_input, {
-                id: "mailingAddress",
-                modelValue: unref(form).mailingAddress,
-                "onUpdate:modelValue": ($event) => unref(form).mailingAddress = $event,
-                type: "email",
-                autocomplete: "off",
-                invalid: _ctx.invalidInput.mailingAddress
-              }, null, 8, ["modelValue", "onUpdate:modelValue", "invalid"]),
-              createVNode("label", { for: "mailingAddress" }, " Email Address ")
-            ];
-          }
-        }),
-        _: 1
-      }, _parent));
-      _push(ssrRenderComponent(_component_FloatLabel, { variant: "on" }, {
-        default: withCtx((_, _push2, _parent2, _scopeId) => {
-          if (_push2) {
-            _push2(ssrRenderComponent(_component_input_number_mask, {
-              id: "phoneNumber",
-              modelValue: unref(form).phoneNumber,
-              "onUpdate:modelValue": ($event) => unref(form).phoneNumber = $event,
-              invalid: _ctx.invalidInput.phoneNumber
-            }, null, _parent2, _scopeId));
-            _push2(`<label for="phoneNumber" data-v-d2727363${_scopeId}> Phone Number </label>`);
-          } else {
-            return [
-              createVNode(_component_input_number_mask, {
-                id: "phoneNumber",
-                modelValue: unref(form).phoneNumber,
-                "onUpdate:modelValue": ($event) => unref(form).phoneNumber = $event,
-                invalid: _ctx.invalidInput.phoneNumber
-              }, null, 8, ["modelValue", "onUpdate:modelValue", "invalid"]),
-              createVNode("label", { for: "phoneNumber" }, " Phone Number ")
+              createVNode("label", { for: "phone" }, " Email address ")
             ];
           }
         }),
@@ -281,10 +203,10 @@ const _sfc_main = {
               modelValue: unref(form).secret,
               "onUpdate:modelValue": ($event) => unref(form).secret = $event,
               feedback: false,
-              invalid: _ctx.invalidInput.secret,
+              invalid: unref(invalidInput).secret,
               fluid: ""
             }, null, _parent2, _scopeId));
-            _push2(`<label for="password" data-v-d2727363${_scopeId}> Password </label>`);
+            _push2(`<label for="password" data-v-9fae8510${_scopeId}> Password </label>`);
           } else {
             return [
               createVNode(_component_input_password_input, {
@@ -292,7 +214,7 @@ const _sfc_main = {
                 modelValue: unref(form).secret,
                 "onUpdate:modelValue": ($event) => unref(form).secret = $event,
                 feedback: false,
-                invalid: _ctx.invalidInput.secret,
+                invalid: unref(invalidInput).secret,
                 fluid: ""
               }, null, 8, ["modelValue", "onUpdate:modelValue", "invalid"]),
               createVNode("label", { for: "password" }, " Password ")
@@ -301,45 +223,49 @@ const _sfc_main = {
         }),
         _: 1
       }, _parent));
-      _push(ssrRenderComponent(_component_FloatLabel, { variant: "on" }, {
+      _push(`</div><div class="space-y-5 text-sm text-gray-600" data-v-9fae8510><p class="text-center" data-v-9fae8510> By continuing, you agree to <span class="mr-1.5" data-v-9fae8510>${ssrInterpolate(unref(config).public.appName)}</span>`);
+      _push(ssrRenderComponent(_component_nuxt_link, {
+        to: "#",
+        class: "font-semibold hover:underline"
+      }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(ssrRenderComponent(_component_input_password_input, {
-              id: "password_confirmation",
-              modelValue: unref(form).secret_confirmation,
-              "onUpdate:modelValue": ($event) => unref(form).secret_confirmation = $event,
-              feedback: false,
-              invalid: _ctx.invalidInput.secret_confirmation,
-              fluid: ""
-            }, null, _parent2, _scopeId));
-            _push2(`<label for="password_confirmation" data-v-d2727363${_scopeId}> Password Confirmation </label>`);
+            _push2(`Terms of Use`);
           } else {
             return [
-              createVNode(_component_input_password_input, {
-                id: "password_confirmation",
-                modelValue: unref(form).secret_confirmation,
-                "onUpdate:modelValue": ($event) => unref(form).secret_confirmation = $event,
-                feedback: false,
-                invalid: _ctx.invalidInput.secret_confirmation,
-                fluid: ""
-              }, null, 8, ["modelValue", "onUpdate:modelValue", "invalid"]),
-              createVNode("label", { for: "password_confirmation" }, " Password Confirmation ")
+              createTextVNode("Terms of Use")
             ];
           }
         }),
         _: 1
       }, _parent));
-      _push(`</div><div class="space-y-5 text-sm text-gray-600" data-v-d2727363><div class="space-y-3" data-v-d2727363><p class="text-center" data-v-d2727363> Already have an account? `);
+      _push(` and `);
       _push(ssrRenderComponent(_component_nuxt_link, {
-        to: "/",
+        to: "#",
+        class: "font-semibold hover:underline"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`Privacy Policy`);
+          } else {
+            return [
+              createTextVNode("Privacy Policy")
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`. </p><div class="space-y-3" data-v-9fae8510><p class="text-center" data-v-9fae8510> Do not have an account? `);
+      _push(ssrRenderComponent(_component_nuxt_link, {
+        to: "/signup",
         class: "text-emerald-500 hover:underline hover:font-semibold"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`sign in`);
+            _push2(`join us`);
           } else {
             return [
-              createTextVNode("sign in")
+              createTextVNode("join us")
             ];
           }
         }),
@@ -359,10 +285,10 @@ const _sfc_main = {
 const _sfc_setup = _sfc_main.setup;
 _sfc_main.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/signup.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/index.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
-const signup = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-d2727363"]]);
+const index = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-9fae8510"]]);
 
-export { signup as default };
-//# sourceMappingURL=signup-P9LhJBXn.mjs.map
+export { index as default };
+//# sourceMappingURL=index-BUS2Zf0Q.mjs.map

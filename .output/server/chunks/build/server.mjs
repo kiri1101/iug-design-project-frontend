@@ -505,7 +505,7 @@ const _routes = [
     name: "index",
     path: "/",
     meta: { "middleware": ["guest"] },
-    component: () => import('./index-3fsHm18x.mjs')
+    component: () => import('./index-BUS2Zf0Q.mjs')
   },
   {
     name: "users",
@@ -524,7 +524,7 @@ const _routes = [
     name: "signup",
     path: "/signup",
     meta: { "middleware": ["guest"] },
-    component: () => import('./signup-P9LhJBXn.mjs')
+    component: () => import('./signup-tZFhi9r_.mjs')
   },
   {
     name: "dashboard",
