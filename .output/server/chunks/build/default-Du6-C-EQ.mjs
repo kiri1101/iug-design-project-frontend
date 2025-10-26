@@ -119,7 +119,7 @@ import '@primeuix/utils/uuid';
 
 const _sfc_main = {};
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
-  _push(`<main${ssrRenderAttrs(mergeProps({ class: "h-dvh w-screen antialiased font-mono" }, _attrs))}>`);
+  _push(`<main${ssrRenderAttrs(mergeProps({ class: "h-dvh w-screen antialiased font-mono bg-white" }, _attrs))}>`);
   ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
   _push(`</main>`);
 }
@@ -132,4 +132,4 @@ _sfc_main.setup = (props, ctx) => {
 const _default = /* @__PURE__ */ _export_sfc(_sfc_main, [["ssrRender", _sfc_ssrRender]]);
 
 export { _default as default };
-//# sourceMappingURL=default-DiAP3pmc.mjs.map
+//# sourceMappingURL=default-Du6-C-EQ.mjs.map

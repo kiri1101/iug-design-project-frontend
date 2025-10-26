@@ -1,1 +1,0 @@
-import{_ as o,c as s,o as t,W as n}from"#entry";const a={},c={class:"h-dvh w-screen antialiased font-mono"};function r(e,_){return t(),s("main",c,[n(e.$slots,"default")])}const d=o(a,[["render",r]]);export{d as default};

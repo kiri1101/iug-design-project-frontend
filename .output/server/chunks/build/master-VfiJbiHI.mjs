@@ -238,7 +238,7 @@ const _sfc_main = {
       const _component_Popover = script;
       const _component_SpeedDial = script$1;
       const _directive_tooltip = Tooltip;
-      _push(`<main${ssrRenderAttrs(mergeProps({ class: "flex flex-col w-full font-mono antialiased h-dvh" }, _attrs))}><nav class="flex flex-row items-center justify-between px-3 py-1 border-b border-gray-300" aria-label="Navigation bar">`);
+      _push(`<main${ssrRenderAttrs(mergeProps({ class: "flex flex-col w-full font-mono antialiased h-dvh bg-white" }, _attrs))}><nav class="flex flex-row items-center justify-between px-3 py-1 border-b border-gray-300" aria-label="Navigation bar">`);
       _push(ssrRenderComponent(_component_nuxt_link, {
         to: "/",
         class: "inline-flex"
@@ -428,4 +428,4 @@ _sfc_main.setup = (props, ctx) => {
 };
 
 export { _sfc_main as default };
-//# sourceMappingURL=master-BzWDL4Hz.mjs.map
+//# sourceMappingURL=master-VfiJbiHI.mjs.map

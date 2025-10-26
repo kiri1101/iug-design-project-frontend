@@ -2523,8 +2523,8 @@ const __nuxt_component_0$1 = defineComponent({
   }
 });
 const layouts = {
-  default: defineAsyncComponent(() => import('./default-DiAP3pmc.mjs').then((m) => m.default || m)),
-  master: defineAsyncComponent(() => import('./master-BzWDL4Hz.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-Du6-C-EQ.mjs').then((m) => m.default || m)),
+  master: defineAsyncComponent(() => import('./master-VfiJbiHI.mjs').then((m) => m.default || m))
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
