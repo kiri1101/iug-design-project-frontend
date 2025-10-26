@@ -6,8 +6,7 @@ definePageMeta({
 const config = useRuntimeConfig()
 const { $apiFetch } = useNuxtApp()
 const authStore = useAuthStore()
-const { z } = useZod()
-const { e, s } = useNotify()
+const { e, s, w } = useNotify()
 const form = ref({
   firstName: '',
   lastName: '',
@@ -20,40 +19,30 @@ const isLoading = ref(false)
 const year = new Date().getFullYear()
 
 const submit = async () => {
-  const payload = z
-    .object({
-      pseudo: z.email(),
-      secret: z.string().min(6, 'Password must be at least 6 characters long'),
+  isLoading.value = true
+  try {
+    const response = await $apiFetch(config.public.auth.register, {
+      method: 'POST',
+      body: form.value,
     })
-    .safeParse(form.value)
 
-  if (payload.success) {
-    isLoading.value = true
-    try {
-      const response = await $apiFetch(config.public.auth.register, {
-        method: 'POST',
-        body: form.value,
-      })
+    console.log('register response: ', response)
+    authStore.updateAuth(response.data)
+    s(response.message)
+    navigateTo('/dashboard')
+  } catch ({ status, data }) {
+    console.log('login error: ', status, data)
+    switch (status) {
+      case 422:
+        Object.values(data.errors).map(err => e(err[0]))
+        break
 
-      console.log('register response: ', response)
-      authStore.updateAuth(response.data)
-      s(response.message)
-      navigateTo('/dashboard')
-    } catch ({ status, data }) {
-      console.log('login error: ', status, data)
-      switch (status) {
-        case 422:
-          Object.values(data.errors).map(err => e(err[0]))
-          break
-
-        default:
-          break
-      }
-    } finally {
-      isLoading.value = false
+      default:
+        w(data.message)
+        break
     }
-  } else {
-    payload.error.issues.map(issue => e(issue.message))
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
@@ -117,7 +106,6 @@ const submit = async () => {
                 id="lastName"
                 v-model="form.lastName"
                 autocomplete="off"
-                :invalid="invalidInput.lastName"
               />
 
               <label for="lastName"> Last Name </label>
@@ -129,7 +117,6 @@ const submit = async () => {
                 v-model="form.mailingAddress"
                 type="email"
                 autocomplete="off"
-                :invalid="invalidInput.mailingAddress"
               />
 
               <label for="mailingAddress"> Email Address </label>
@@ -139,7 +126,7 @@ const submit = async () => {
               <input-number-mask
                 id="phoneNumber"
                 v-model="form.phoneNumber"
-                :invalid="invalidInput.phoneNumber"
+                mask="9-99-99-99-99"
               />
 
               <label for="phoneNumber"> Phone Number </label>
@@ -150,7 +137,6 @@ const submit = async () => {
                 id="password"
                 v-model="form.secret"
                 :feedback="false"
-                :invalid="invalidInput.secret"
                 fluid
               />
 
@@ -162,7 +148,6 @@ const submit = async () => {
                 id="password_confirmation"
                 v-model="form.secret_confirmation"
                 :feedback="false"
-                :invalid="invalidInput.secret_confirmation"
                 fluid
               />
 

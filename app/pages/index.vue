@@ -7,7 +7,7 @@ const config = useRuntimeConfig()
 const { $apiFetch } = useNuxtApp()
 const authStore = useAuthStore()
 const { z } = useZod()
-const { e, s } = useNotify()
+const { e, s, w } = useNotify()
 const form = ref({
   pseudo: '',
   secret: '',
@@ -48,6 +48,7 @@ const submit = async () => {
           break
 
         default:
+          w(data.message)
           break
       }
     } finally {
