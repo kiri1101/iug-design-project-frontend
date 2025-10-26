@@ -37,7 +37,7 @@ const logout = async () => {
 </script>
 
 <template>
-  <main class="flex flex-col w-full font-mono antialiased h-dvh">
+  <main class="flex flex-col w-full font-mono antialiased h-dvh bg-white">
     <nav
       class="flex flex-row items-center justify-between px-3 py-1 border-b border-gray-300"
       aria-label="Navigation bar"
