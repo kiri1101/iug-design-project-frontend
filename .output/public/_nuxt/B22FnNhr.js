@@ -1,1 +1,0 @@
-import n from"./PZqouyIw.js";import{_ as t,p as s,o as r}from"#entry";const c={};function e(_,a){const o=n;return r(),s(o,{pt:{root:"w-full rounded h-9"},"input-class":"w-full rounded h-9","panel-class":"font-mono text-gray-500",fluid:""})}const f=Object.assign(t(c,[["render",e]]),{__name:"InputPasswordInput"});export{f as _};

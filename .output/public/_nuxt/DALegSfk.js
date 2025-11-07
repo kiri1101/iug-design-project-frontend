@@ -1,0 +1,1 @@
+import{u as e}from"./LTkOV7AE.js";import{c as a,o as t}from"#entry";const p={__name:"dashboard",setup(o){return e({title:"Dashboard - IUGDesign",meta:[{name:"description",content:"My design project application."}]}),(r,n)=>(t(),a("h5",null,"Dashboard"))}};export{p as default};

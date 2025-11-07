@@ -1,0 +1,1 @@
+import t from"./4Sk9HVMb.js";import{p as e,o as n}from"#entry";const s={__name:"InputNumberMask",props:{borderRadius:{type:String,default:"rounded"},borderColor:{type:String,default:""}},setup(r){return(p,u)=>{const o=t;return n(),e(o,{pt:{root:["w-full rounded h-9",r.borderRadius,r.borderColor]}},null,8,["pt"])}}};export{s as _};

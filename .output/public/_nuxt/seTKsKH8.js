@@ -1,1 +1,0 @@
-import{c as o,b as t,o as s,m as _}from"#entry";const a={class:"h-full p-3 bg-white rounded-lg shadow"},u={__name:"users",setup(c){return(n,r)=>{const e=_;return s(),o("div",a,[t(e,{foobar:123})])}}};export{u as default};

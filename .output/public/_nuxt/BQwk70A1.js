@@ -1,1 +1,0 @@
-import{A as s,B as a,n as o}from"#entry";const d=s((u,r)=>{const e=a("auth",{default:()=>({authUser:{}})});if(["token","user","settings"].every(t=>Object.keys(e.value.authUser).includes(t)))return o("/dashboard")});export{d as default};
