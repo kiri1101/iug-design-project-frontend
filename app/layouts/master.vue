@@ -11,6 +11,21 @@ const expandHeight = ref(false)
 
 onUnmounted(() => authStore.resetAuth())
 
+const canShowUser = computed(() => {
+  let output
+  if (authStore.isAuth) {
+    let authUserRoles = authStore.authUser.user.role
+    output =
+      authUserRoles.find(role => role.slug === 'ceo') !== undefined ||
+      authUserRoles.find(role => role.slug === 'dhr') !== undefined
+        ? true
+        : false
+  } else {
+    output = false
+  }
+  return output
+})
+
 const toggleMenu = event => menu.value.toggle(event)
 
 const expandingHeight = () => (expandHeight.value = true)
@@ -31,7 +46,7 @@ const logout = async () => {
   } finally {
     isLoading.value = false
     authStore.resetAuth()
-    navigateTo('/')
+    return navigateTo('/')
   }
 }
 </script>
@@ -58,7 +73,7 @@ const logout = async () => {
           <Popover ref="menu">
             <div class="w-52">
               <ul class="space-y-1">
-                <li class="p-2 border-b border-gray-300">
+                <li class="p-2 border-b border-gray-300 capitalize">
                   <i class="mr-1 pi pi-user" />
                   {{ authUser?.user.fullName }}
                 </li>
@@ -151,7 +166,7 @@ const logout = async () => {
               Dashboard
             </nuxt-link>
           </li>
-          <li>
+          <li v-if="canShowUser">
             <nuxt-link
               to="/users/list"
               :class="[
@@ -170,11 +185,24 @@ const logout = async () => {
               Users
             </nuxt-link>
           </li>
-          <li
-            class="flex items-center cursor-pointer hover:bg-emerald-500 px-2 text-base py-1.5 rounded hover:text-gray-100"
-          >
-            <i class="pi pi-telegram mr-1.5" />
-            Leave
+          <li>
+            <nuxt-link
+              to="/leaves/list"
+              :class="[
+                'flex items-center cursor-pointer px-2 text-base py-1.5 rounded ',
+                {
+                  'bg-emerald-500 text-white':
+                    $router.currentRoute.value.name === 'leaves-list',
+                },
+                {
+                  'hover:bg-emerald-500 hover:text-gray-100':
+                    $router.currentRoute.value.name !== 'leaves-list',
+                },
+              ]"
+            >
+              <i class="pi pi-telegram mr-1.5" />
+              Leave
+            </nuxt-link>
           </li>
           <li
             class="flex items-center cursor-pointer hover:bg-emerald-500 px-2 text-base py-1.5 rounded hover:text-gray-100"

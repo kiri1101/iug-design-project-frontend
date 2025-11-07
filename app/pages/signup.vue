@@ -18,6 +18,11 @@ const form = ref({
 const isLoading = ref(false)
 const year = new Date().getFullYear()
 
+useHead({
+  title: `Sign Up - IUGDesign`,
+  meta: [{ name: 'description', content: 'My design project application.' }],
+})
+
 const submit = async () => {
   isLoading.value = true
   try {
@@ -29,7 +34,7 @@ const submit = async () => {
     console.log('register response: ', response)
     authStore.updateAuth(response.data)
     s(response.message)
-    navigateTo('/dashboard')
+    return navigateTo('/dashboard')
   } catch ({ status, data }) {
     console.log('login error: ', status, data)
     switch (status) {

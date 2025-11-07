@@ -24,11 +24,11 @@ export default defineNuxtPlugin(nuxtApp => {
           `Bearer ${(authStore.authUser as AuthResponse)?.token}`
         )
       },
-      onResponseError: ({ response }) => {
+      onResponseError: async ({ response }) => {
         switch (Number(response.status)) {
           case 401:
             authStore.resetAuth()
-            navigateTo('/')
+            await navigateTo('/')
             break
 
           default:

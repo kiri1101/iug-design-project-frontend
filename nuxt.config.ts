@@ -43,6 +43,15 @@ export default defineNuxtConfig({
         delete: process.env.USERS_DELETE,
         edit: process.env.USERS_UPDATE,
       },
+      leave: {
+        list: process.env.LEAVE_LIST,
+        store: process.env.LEAVE_STORE,
+        edit: process.env.LEAVE_UPDATE,
+        delete: process.env.LEAVE_DELETE,
+        status: {
+          update: process.env.LEAVE_UPDATE_STATUS,
+        },
+      },
     },
   },
 })

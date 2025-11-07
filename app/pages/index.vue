@@ -3,6 +3,11 @@ definePageMeta({
   middleware: ['guest'],
 })
 
+useHead({
+  title: `Sign In - IUGDesign`,
+  meta: [{ name: 'description', content: 'My design project application.' }],
+})
+
 const config = useRuntimeConfig()
 const { $apiFetch } = useNuxtApp()
 const authStore = useAuthStore()
@@ -16,7 +21,6 @@ const invalidInput = ref({
   pseudo: false,
   secret: false,
 })
-const formError = ref([])
 const isLoading = ref(false)
 const year = new Date().getFullYear()
 
@@ -39,7 +43,7 @@ const submit = async () => {
       console.log('login response: ', response)
       authStore.updateAuth(response.data)
       s(response.message)
-      navigateTo('/dashboard')
+      return navigateTo('/dashboard')
     } catch ({ status, data }) {
       console.log('login error: ', status, data)
       switch (status) {

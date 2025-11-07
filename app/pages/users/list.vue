@@ -1,4 +1,9 @@
 <script setup>
+useHead({
+  title: `Users - IUGDesign`,
+  meta: [{ name: 'description', content: 'My design project application.' }],
+})
+
 onMounted(() => getUsers())
 
 const config = useRuntimeConfig()
@@ -29,9 +34,23 @@ const modalTitle = computed(() =>
   isUpdatingUser.value ? 'Edit user' : 'Create new user'
 )
 
+const resetForm = () => {
+  form.value = {
+    firstName: '',
+    lastName: '',
+    mailingAddress: '',
+    phoneNumber: '',
+    position: '',
+    department: '',
+  }
+}
+
 const openingCreateUserModal = () => (createUser.value = true)
 
-const closingCreateUserModal = () => (createUser.value = false)
+const closingCreateUserModal = () => {
+  createUser.value = false
+  resetForm()
+}
 
 const changeUserModalTitle = () => (isUpdatingUser.value = true)
 
@@ -188,23 +207,30 @@ const editUser = user => {
       tableStyle="min-width: 50rem"
     >
       <Column field="fullName" header="Name" style="width: 30%"></Column>
-      <Column field="mailingAddress" header="Email" style="width: 20%"></Column>
+      <Column field="mailingAddress" header="Email" style="width: 15%"></Column>
       <Column
         field="phoneNumber"
         header="Phone Number"
-        style="width: 20%"
+        style="width: 15%"
       ></Column>
-      <Column field="position" header="Position" style="width: 20%"></Column>
+      <Column field="position" header="Position" style="width: 15%"></Column>
+      <Column
+        field="department.name"
+        header="Department"
+        style="width: 15%"
+      ></Column>
       <Column header="Actions" style="width: 10%">
         <template #body="slotProps">
           <span class="space-x-1.5">
             <i
               @click.prevent="editUser(slotProps.data)"
+              v-tooltip="'Edit'"
               class="cursor-pointer pi pi-pen-to-square hover:text-emerald-500"
             />
 
             <i
               @click.prevent="deleteUser(slotProps.data.id)"
+              v-tooltip="'Delete'"
               class="z-50 cursor-pointer pi pi-trash hover:text-red-500"
             />
           </span>
@@ -279,7 +305,7 @@ const editUser = user => {
 
         <button-primary-button
           type="submit"
-          label="Join now"
+          label="Create"
           iconPos="right"
           :loading="isLoading"
         />

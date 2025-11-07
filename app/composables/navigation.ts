@@ -13,7 +13,7 @@ export const useNavigation = () => {
     {
       label: 'Leave',
       icon: 'pi pi-telegram',
-      command: () => {},
+      command: () => navigateTo('/leaves/list'),
     },
     {
       label: 'Sanction',
