@@ -1,1 +1,0 @@
-import{c as o,b as t,o as s,i as _}from"#entry";const a={class:"h-full p-3 bg-white rounded-lg shadow"},p={__name:"leaves",setup(c){return(n,r)=>{const e=_;return s(),o("div",a,[t(e)])}}};export{p as default};

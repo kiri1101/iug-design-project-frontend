@@ -508,7 +508,7 @@ const _routes = [
     name: "index",
     path: "/",
     meta: { "middleware": ["guest"] },
-    component: () => import('./index-CF-w91gT.mjs')
+    component: () => import('./index-BTdwAZ_s.mjs')
   },
   {
     name: "users",
@@ -519,7 +519,7 @@ const _routes = [
       {
         name: "users-list",
         path: "list",
-        component: () => import('./list-CxX-lq6t.mjs')
+        component: () => import('./list-CqdqErZ6.mjs')
       }
     ]
   },
@@ -527,12 +527,12 @@ const _routes = [
     name: "leaves",
     path: "/leaves",
     meta: { ...__nuxt_page_meta$1 || {}, ...{ "middleware": ["auth"] } },
-    component: () => import('./leaves-CepikKHA.mjs'),
+    component: () => import('./leaves-ERhMJtpf.mjs'),
     children: [
       {
         name: "leaves-list",
         path: "list",
-        component: () => import('./list-yWUVKRxI.mjs')
+        component: () => import('./list-DFHh5Awt.mjs')
       }
     ]
   },
@@ -546,7 +546,7 @@ const _routes = [
     name: "dashboard",
     path: "/dashboard",
     meta: { ...__nuxt_page_meta || {}, ...{ "middleware": ["auth"] } },
-    component: () => import('./dashboard-CGnAWuQZ.mjs')
+    component: () => import('./dashboard-BL-TsKeH.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -998,12 +998,12 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
     };
   }
 });
-const LazyAutoComplete = defineAsyncComponent(() => import('./index-B19nNzl-.mjs').then((r) => r["default"] || r.default || r));
+const LazyAutoComplete = defineAsyncComponent(() => import('./index-ByTOMf-T.mjs').then((r) => r["default"] || r.default || r));
 const LazyCalendar = defineAsyncComponent(() => import('./index-BJRFCf55.mjs').then((r) => r["default"] || r.default || r));
 const LazyCascadeSelect = defineAsyncComponent(() => import('./index-BEYyTMLl.mjs').then((r) => r["default"] || r.default || r));
 const LazyCheckbox = defineAsyncComponent(() => import('./index-C17g6_uC.mjs').then((r) => r["default"] || r.default || r));
 const LazyCheckboxGroup = defineAsyncComponent(() => import('./index-uNVJtilH.mjs').then((r) => r["default"] || r.default || r));
-const LazyChips = defineAsyncComponent(() => import('./index-BGawO4yi.mjs').then((r) => r["default"] || r.default || r));
+const LazyChips = defineAsyncComponent(() => import('./index-DRPHMPyx.mjs').then((r) => r["default"] || r.default || r));
 const LazyColorPicker = defineAsyncComponent(() => import('./index-Ccvb4sz0.mjs').then((r) => r["default"] || r.default || r));
 const LazyDatePicker = defineAsyncComponent(() => import('./index-CH97wfVa.mjs').then((r) => r["default"] || r.default || r));
 const LazyDropdown = defineAsyncComponent(() => import('./index-CvRsb8Fg.mjs').then((r) => r["default"] || r.default || r));
@@ -1011,7 +1011,7 @@ const LazyFloatLabel = defineAsyncComponent(() => import('./index-B6qc2dch.mjs')
 const LazyFluid = defineAsyncComponent(() => import('./index-OXD1DRyw.mjs').then((r) => r["default"] || r.default || r));
 const LazyIconField = defineAsyncComponent(() => import('./index-DKQ5rRsm.mjs').then((r) => r["default"] || r.default || r));
 const LazyIftaLabel = defineAsyncComponent(() => import('./index-BHkIdA1t.mjs').then((r) => r["default"] || r.default || r));
-const LazyInputChips = defineAsyncComponent(() => import('./index-DQNbUedC.mjs').then((r) => r["default"] || r.default || r));
+const LazyInputChips = defineAsyncComponent(() => import('./index-DLT5EPCS.mjs').then((r) => r["default"] || r.default || r));
 const LazyInputGroup = defineAsyncComponent(() => import('./index-B7ZTHEVx.mjs').then((r) => r["default"] || r.default || r));
 const LazyInputGroupAddon = defineAsyncComponent(() => import('./index-BKLkyeQe.mjs').then((r) => r["default"] || r.default || r));
 const LazyInputIcon = defineAsyncComponent(() => import('./index-CN1PH7hu.mjs').then((r) => r["default"] || r.default || r));
@@ -1022,7 +1022,7 @@ const LazyInputSwitch = defineAsyncComponent(() => import('./index-BOCrGLMe.mjs'
 const LazyInputText = defineAsyncComponent(() => import('./index-VaIectPZ.mjs').then((r) => r["default"] || r.default || r));
 const LazyKnob = defineAsyncComponent(() => import('./index-RYQtwIBS.mjs').then((r) => r["default"] || r.default || r));
 const LazyListbox = defineAsyncComponent(() => import('./index-D4EPmRHe.mjs').then((r) => r["default"] || r.default || r));
-const LazyMultiSelect = defineAsyncComponent(() => import('./index-Oi0R5_TJ.mjs').then((r) => r["default"] || r.default || r));
+const LazyMultiSelect = defineAsyncComponent(() => import('./index-DJf3SlTE.mjs').then((r) => r["default"] || r.default || r));
 const LazyPassword = defineAsyncComponent(() => import('./index-RULRiAAT.mjs').then((r) => r["default"] || r.default || r));
 const LazyRadioButton = defineAsyncComponent(() => import('./index-CknRS-cy.mjs').then((r) => r["default"] || r.default || r));
 const LazyRadioButtonGroup = defineAsyncComponent(() => import('./index-DWp-rqzH.mjs').then((r) => r["default"] || r.default || r));
@@ -1033,7 +1033,7 @@ const LazySlider = defineAsyncComponent(() => import('./index-DQOWmUAh.mjs').the
 const LazyTextarea = defineAsyncComponent(() => import('./index-CAz1XFQb.mjs').then((r) => r["default"] || r.default || r));
 const LazyToggleButton = defineAsyncComponent(() => import('./index-p5De-Dyp.mjs').then((r) => r["default"] || r.default || r));
 const LazyToggleSwitch = defineAsyncComponent(() => import('./index-CmAcLIyV.mjs').then((r) => r["default"] || r.default || r));
-const LazyTreeSelect = defineAsyncComponent(() => import('./index-Cve5CXkx.mjs').then((r) => r["default"] || r.default || r));
+const LazyTreeSelect = defineAsyncComponent(() => import('./index-GkA5acHv.mjs').then((r) => r["default"] || r.default || r));
 const LazyButton = defineAsyncComponent(() => import('./index-DORBdgI_.mjs').then((r) => r["default"] || r.default || r));
 const LazyButtonGroup = defineAsyncComponent(() => import('./index-CzTwcRpJ.mjs').then((r) => r["default"] || r.default || r));
 const LazySpeedDial = defineAsyncComponent(() => import('./index-CIYZaRL-.mjs').then((r) => r["default"] || r.default || r));
@@ -1077,8 +1077,8 @@ const LazyTab = defineAsyncComponent(() => import('./index-Bup_grr9.mjs').then((
 const LazyTabPanels = defineAsyncComponent(() => import('./index-CYUeZEIg.mjs').then((r) => r["default"] || r.default || r));
 const LazyTabPanel = defineAsyncComponent(() => import('./index-BLUNwmpI.mjs').then((r) => r["default"] || r.default || r));
 const LazyToolbar = defineAsyncComponent(() => import('./index-CT8oyAR6.mjs').then((r) => r["default"] || r.default || r));
-const LazyConfirmDialog = defineAsyncComponent(() => import('./index-B9y_j7Xq.mjs').then((r) => r["default"] || r.default || r));
-const LazyConfirmPopup = defineAsyncComponent(() => import('./index-0lvFNX6P.mjs').then((r) => r["default"] || r.default || r));
+const LazyConfirmDialog = defineAsyncComponent(() => import('./index-BCVEBQX2.mjs').then((r) => r["default"] || r.default || r));
+const LazyConfirmPopup = defineAsyncComponent(() => import('./index-fI_FsH7Q.mjs').then((r) => r["default"] || r.default || r));
 const LazyDialog = defineAsyncComponent(() => import('./index-BwU4rB8T.mjs').then((r) => r["default"] || r.default || r));
 const LazyDrawer = defineAsyncComponent(() => import('./index-CwRA478j.mjs').then((r) => r["default"] || r.default || r));
 const LazyDynamicDialog = defineAsyncComponent(() => import('./index-sxHeW4EI.mjs').then((r) => r["default"] || r.default || r));
@@ -1097,7 +1097,7 @@ const LazySteps = defineAsyncComponent(() => import('./index-CamEDjB1.mjs').then
 const LazyTabMenu = defineAsyncComponent(() => import('./index-DhEojJg8.mjs').then((r) => r["default"] || r.default || r));
 const LazyTieredMenu = defineAsyncComponent(() => import('./index-DEaNbCHE.mjs').then((r) => r["default"] || r.default || r));
 const LazyMessage = defineAsyncComponent(() => import('./index-CxmxeBGM.mjs').then((r) => r["default"] || r.default || r));
-const LazyInlineMessage = defineAsyncComponent(() => import('./index-CiBPlqmR.mjs').then((r) => r["default"] || r.default || r));
+const LazyInlineMessage = defineAsyncComponent(() => import('./index-BdzoOaGi.mjs').then((r) => r["default"] || r.default || r));
 const LazyToast = defineAsyncComponent(() => Promise.resolve().then(() => index).then((r) => r["default"] || r.default || r));
 const LazyCarousel = defineAsyncComponent(() => import('./index-BqemeGoK.mjs').then((r) => r["default"] || r.default || r));
 const LazyGalleria = defineAsyncComponent(() => import('./index-Bogj8Fcd.mjs').then((r) => r["default"] || r.default || r));
@@ -1107,7 +1107,7 @@ const LazyAvatar = defineAsyncComponent(() => import('./index-BssdqswA.mjs').the
 const LazyAvatarGroup = defineAsyncComponent(() => import('./index-DoWh5j9Q.mjs').then((r) => r["default"] || r.default || r));
 const LazyBadge = defineAsyncComponent(() => import('./index-B4FWBZFG.mjs').then((r) => r["default"] || r.default || r));
 const LazyBlockUI = defineAsyncComponent(() => import('./index-DF-U9XWu.mjs').then((r) => r["default"] || r.default || r));
-const LazyChip = defineAsyncComponent(() => import('./index-DEiJ288g.mjs').then((r) => r["default"] || r.default || r));
+const LazyChip = defineAsyncComponent(() => import('./index-BFoio3l7.mjs').then((r) => r["default"] || r.default || r));
 const LazyInplace = defineAsyncComponent(() => import('./index-CMFweuez.mjs').then((r) => r["default"] || r.default || r));
 const LazyMeterGroup = defineAsyncComponent(() => import('./index-Dxhaik5z.mjs').then((r) => r["default"] || r.default || r));
 const LazyOverlayBadge = defineAsyncComponent(() => import('./index-DWLT177U.mjs').then((r) => r["default"] || r.default || r));
@@ -3761,7 +3761,7 @@ const __nuxt_component_0$1 = defineComponent({
 });
 const layouts = {
   default: defineAsyncComponent(() => import('./default-DoO5CY2G.mjs').then((m) => m.default || m)),
-  master: defineAsyncComponent(() => import('./master-DZErHsnm.mjs').then((m) => m.default || m))
+  master: defineAsyncComponent(() => import('./master-CWMkB_bv.mjs').then((m) => m.default || m))
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
@@ -5867,5 +5867,5 @@ let entry;
 }
 const entry$1 = (ssrContext) => entry(ssrContext);
 
-export { BaseStyle as B, ConnectedOverlayScrollHandler as C, DynamicDialogEventBus as D, FilterMatchMode as F, Ripple as R, Tooltip as T, _export_sfc as _, useAuthStore as a, useRuntimeConfig as b, __nuxt_component_0 as c, defineNuxtRouteMiddleware as d, entry$1 as default, useCookie as e, script$a as f, script$9 as g, script$8 as h, useRouter as i, nuxtLinkDefaults as j, useToast as k, script$7 as l, FilterService as m, navigateTo as n, FilterOperator as o, getVNodeProp as p, _default as q, resolveRouteObject as r, script$4 as s, BaseDirective as t, useNuxtApp as u, script$3 as v, ConfirmationEventBus as w, script$6 as x, script$5 as y };
+export { BaseStyle as B, ConnectedOverlayScrollHandler as C, DynamicDialogEventBus as D, FilterMatchMode as F, Ripple as R, Tooltip as T, _export_sfc as _, useAuthStore as a, useRuntimeConfig as b, __nuxt_component_0 as c, defineNuxtRouteMiddleware as d, entry$1 as default, useCookie as e, script$a as f, script$9 as g, script$8 as h, useRouter as i, nuxtLinkDefaults as j, useToast as k, script$7 as l, FilterService as m, navigateTo as n, FilterOperator as o, getVNodeProp as p, _default as q, resolveRouteObject as r, script$4 as s, BaseDirective as t, useNuxtApp as u, storages as v, script$3 as w, ConfirmationEventBus as x, script$6 as y, script$5 as z };
 //# sourceMappingURL=server.mjs.map

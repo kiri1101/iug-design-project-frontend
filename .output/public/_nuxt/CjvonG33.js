@@ -1,1 +1,0 @@
-import e from"./KogLyb4l.js";import"./Bgx_3rE_.js";import"#entry";var i={name:"Chips",extends:e,mounted:function(){console.warn("Deprecated since v4. Use InputChips component instead.")}};export{i as default};

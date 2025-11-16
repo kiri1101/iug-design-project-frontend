@@ -1,1 +1,0 @@
-import e from"./Br_va_iO.js";import{p as r,o as l}from"#entry";const s={__name:"ButtonPrimaryButton",props:{label:{type:String,default:""}},setup(t){return(n,a)=>{const o=e;return l(),r(o,{label:t.label,pt:{root:"w-full"}},null,8,["label"])}}};export{s as _};
