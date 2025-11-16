@@ -1,6 +1,7 @@
 <script setup>
 const config = useRuntimeConfig()
 const authStore = useAuthStore()
+const notifyStore = useNotificationStore()
 const { $apiFetch } = useNuxtApp()
 const { navItems } = useNavigation()
 const { s } = useNotify()
@@ -8,8 +9,11 @@ const isLoading = ref(false)
 const authUser = authStore.authUser
 const menu = ref()
 const expandHeight = ref(false)
+const showNotifyPanel = ref(false)
 
-onUnmounted(() => authStore.resetAuth())
+onUnmounted(() => {
+  authStore.resetAuth()
+})
 
 const canShowUser = computed(() => {
   let output
@@ -25,6 +29,8 @@ const canShowUser = computed(() => {
   }
   return output
 })
+
+const showingNotifyPanel = () => (showNotifyPanel.value = true)
 
 const toggleMenu = event => menu.value.toggle(event)
 
@@ -61,43 +67,91 @@ const logout = async () => {
         <svg-logo width="w-5" height="h-10" />
       </nuxt-link>
 
-      <ul>
-        <li class="text-sm">
-          <img
-            src="https://picsum.photos/id/237/200/300"
-            class="object-cover object-center rounded-full cursor-pointer size-7"
-            @click.prevent="toggleMenu"
-            alt="Profile picture"
-          />
+      <div class="flex flex-row items-center space-x-2">
+        <div
+          class="relative cursor-pointer hover:scale-110 transition duration-200 ease-linear"
+          @click.prevent="showingNotifyPanel"
+        >
+          <i class="pi pi-bell" />
 
-          <Popover ref="menu">
-            <div class="w-52">
-              <ul class="space-y-1">
-                <li class="p-2 border-b border-gray-300 capitalize">
-                  <i class="mr-1 pi pi-user" />
-                  {{ authUser?.user.fullName }}
-                </li>
-                <li
-                  class="flex items-center justify-between p-2 text-gray-900 transition duration-150 ease-linear rounded cursor-pointer hover:bg-emerald-400 hover:text-gray-100"
-                  @click.prevent="logout"
-                >
-                  <span>
-                    <i class="mr-1 pi pi-sign-out" />
-                    Logout
-                  </span>
+          <span class="absolute top-0 right-0 flex size-2">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"
+            />
+            <span
+              class="relative inline-flex size-2 rounded-full bg-orange-500"
+            />
+          </span>
+        </div>
 
-                  <i
-                    v-if="isLoading"
-                    class="pi pi-spinner animate-spin"
-                    style="font-size: 0.9rem"
-                  />
-                </li>
-              </ul>
-            </div>
-          </Popover>
-        </li>
-      </ul>
+        <ul>
+          <li class="text-sm">
+            <img
+              src="https://picsum.photos/id/237/200/300"
+              class="object-cover object-center rounded-full cursor-pointer size-7"
+              @click.prevent="toggleMenu"
+              alt="Profile picture"
+            />
+
+            <Popover ref="menu">
+              <div class="w-52">
+                <ul class="space-y-1">
+                  <li class="p-2 border-b border-gray-300 capitalize">
+                    <i class="mr-1 pi pi-user" />
+                    {{ authUser?.user.fullName }}
+                  </li>
+                  <li
+                    class="flex items-center justify-between p-2 text-gray-900 transition duration-150 ease-linear rounded cursor-pointer hover:bg-emerald-400 hover:text-gray-100"
+                    @click.prevent="logout"
+                  >
+                    <span>
+                      <i class="mr-1 pi pi-sign-out" />
+                      Logout
+                    </span>
+
+                    <i
+                      v-if="isLoading"
+                      class="pi pi-spinner animate-spin"
+                      style="font-size: 0.9rem"
+                    />
+                  </li>
+                </ul>
+              </div>
+            </Popover>
+          </li>
+        </ul>
+      </div>
     </nav>
+
+    <Drawer v-model:visible="showNotifyPanel" header="Drawer">
+      <template #container="{ closeCallback }">
+        <div class="font-mono space-y-5">
+          <div
+            class="flex flex-row justify-between items-center border-b border-gray-300 p-3"
+          >
+            <h2 class="text-2xl font-bold">Notifications</h2>
+
+            <i
+              class="pi pi-times cursor-pointer hover:bg-gray-900 hover:text-white p-1 rounded transition duration-200 ease-linear"
+              style="font-size: 0.8rem"
+              @click.prevent="closeCallback"
+            />
+          </div>
+
+          <div class="p-3 h-[calc(100dvh-5.5rem)] overflow-y-auto">
+            <ul class="space-y-3">
+              <li
+                v-for="message in notifyStore.list"
+                :key="message.id"
+                class="text-xs bg-gray-700 text-gray-100 p-2 rounded"
+              >
+                {{ message.content }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </template>
+    </Drawer>
 
     <section class="flex flex-row h-full">
       <span class="block md:hidden">
@@ -108,7 +162,7 @@ const logout = async () => {
             position: 'absolute',
             right: 0,
             top: 0,
-            transform: 'translate(-3rem, 0.6rem)',
+            transform: 'translate(-4.5rem, 0.7rem)',
             'z-index': 50,
           }"
           :buttonProps="{ severity: 'contrast', rounded: true }"
@@ -121,7 +175,7 @@ const logout = async () => {
           <template #button="{ toggleCallback }">
             <button
               type="button"
-              class="flex items-center justify-center p-[0.45rem] text-gray-900 border border-gray-500 hover:bg-gray-900 hover:text-gray-100 rounded-sm cursor-pointer transition duration-200 ease-linear"
+              class="flex items-center justify-center py-[0.4rem] px-[0.5rem] text-gray-900 border border-gray-500 hover:bg-gray-900 hover:text-gray-100 rounded-sm cursor-pointer transition duration-200 ease-linear"
               @click.prevent="toggleCallback"
             >
               <i class="pi pi-align-left" style="font-size: 0.8rem" />
@@ -129,14 +183,22 @@ const logout = async () => {
           </template>
 
           <template #item="{ item, toggleCallback }">
-            <button
-              type="button"
-              v-tooltip="`${item.label}`"
-              class="flex items-center justify-center p-[0.45rem] text-gray-900 border border-gray-500 hover:bg-gray-900 hover:text-gray-100 rounded-full cursor-pointer transition duration-200 ease-linear shadow"
-              @click="toggleCallback"
-            >
-              <i :class="item.icon" style="font-size: 0.8rem" />
-            </button>
+            <div class="relative">
+              <button
+                type="button"
+                v-tooltip="`${item.label}`"
+                class="flex items-center justify-center p-[0.45rem] bg-white text-gray-900 border border-gray-500 hover:bg-gray-900 hover:text-gray-100 rounded-full cursor-pointer transition duration-200 ease-linear shadow"
+                @click="toggleCallback"
+              >
+                <i :class="item.icon" style="font-size: 0.8rem" />
+              </button>
+
+              <span
+                class="absolute top-1.5 right-8 bg-white border border-gray-500 rounded-xs px-1 text-xs shadow"
+              >
+                {{ item.label }}
+              </span>
+            </div>
           </template>
         </SpeedDial>
       </span>
@@ -144,8 +206,6 @@ const logout = async () => {
       <aside
         class="flex-col hidden w-48 p-2 border-r border-gray-300 divide-y divide-gray-300 md:flex"
       >
-        <!-- {{ $router.currentRoute.value.name }} -->
-
         <ul class="mt-5 space-y-2 grow">
           <li>
             <nuxt-link
@@ -257,7 +317,9 @@ const logout = async () => {
         <h1 class="mt-3 text-sm text-gray-500">v1.0.9.5</h1>
       </aside>
 
-      <div class="p-2 grow bg-slate-100">
+      <div
+        class="p-2 grow bg-slate-100 h-[calc(100dvh-3.05rem)] overflow-y-auto"
+      >
         <slot />
       </div>
     </section>

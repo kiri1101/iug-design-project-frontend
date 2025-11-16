@@ -52,6 +52,15 @@ export default defineNuxtConfig({
           update: process.env.LEAVE_UPDATE_STATUS,
         },
       },
+      count: {
+        users: process.env.USERS_COUNT,
+      },
+      reverb: {
+        appKey: process.env.REVERB_APP_KEY,
+        host: process.env.REVERB_HOST,
+        port: Number(process.env.REVERB_PORT),
+      },
+      notification: process.env.NOTIFICATION_LIST,
     },
   },
 })

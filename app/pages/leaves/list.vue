@@ -13,14 +13,15 @@ const { $apiFetch } = useNuxtApp()
 const { s, e, w } = useNotify()
 const authStore = useAuthStore()
 const isLoading = ref(false)
-const isTableLoading = ref(false)
-const isDeleteLoading = ref(false)
-const isLoadingStatusUpdate = ref(false)
-const leaveList = ref([])
+const leaveList = ref({
+  department: [],
+  personal: [],
+})
 const createLeave = ref(false)
 const isUpdatingLeave = ref(false)
 const minDate = new Date()
 const chosenLeave = ref({})
+const reject = ref()
 const form = ref({
   type: '',
   description: '',
@@ -37,31 +38,17 @@ const modalTitle = computed(() =>
   isUpdatingLeave.value ? 'Edit leave request' : 'Request for leave'
 )
 
-const statusKey = leaveStatus => {
+const showDepartmentLeaves = computed(() => {
   let output
-  switch (Number(leaveStatus)) {
-    case 1:
-      output = 1
-      break
-    case 2:
-      output = 2
-      break
-    case 3:
-      output = 3
-      break
-    case 4:
-      output = 4
-      break
-    case 5:
-      output = 5
-      break
-
-    default:
-      output = 1
-      break
+  if (authStore.isAuth) {
+    output = authStore.authUser.user.role[0].slug !== 'emp' ? true : false
+  } else {
+    output = false
   }
   return output
-}
+})
+
+const toggleReject = event => reject.value.toggle(event)
 
 const setReturnDateInputMinVal = () =>
   (returnDateInputMinVal.value =
@@ -94,7 +81,7 @@ const resetLeaveModalTitle = () => {
 }
 
 const getLeaves = async () => {
-  isTableLoading.value = true
+  isLoading.value = true
   try {
     const response = await $apiFetch(config.public.leave.list)
 
@@ -113,7 +100,7 @@ const getLeaves = async () => {
         break
     }
   } finally {
-    isTableLoading.value = false
+    isLoading.value = false
   }
 }
 
@@ -167,7 +154,7 @@ const submit = async () => {
 }
 
 const deleteLeave = async leaveId => {
-  isDeleteLoading.value = true
+  isLoading.value = true
   try {
     const response = await $apiFetch(
       config.public.leave.delete.replace(':leave', leaveId),
@@ -190,12 +177,12 @@ const deleteLeave = async leaveId => {
         break
     }
   } finally {
-    isDeleteLoading.value = false
+    isLoading.value = false
   }
 }
 
 const updateStatus = async (status, leaveId) => {
-  isLoadingStatusUpdate.value = true
+  isLoading.value = true
   try {
     const response = await $apiFetch(
       config.public.leave.status.update.replace(':leave', leaveId),
@@ -221,7 +208,7 @@ const updateStatus = async (status, leaveId) => {
         break
     }
   } finally {
-    isLoadingStatusUpdate.value = false
+    isLoading.value = false
   }
 }
 
@@ -246,7 +233,7 @@ const editLeave = leave => {
       >
         <span>
           <i
-            v-show="isDeleteLoading"
+            v-show="isLoading"
             class="text-emerald-500 pi pi-spinner animate-spin"
             style="font-size: 1.2rem"
           />
@@ -271,144 +258,407 @@ const editLeave = leave => {
       </div>
     </div>
 
-    <DataTable
-      :value="leaveList"
-      paginator
-      :rows="10"
-      :rowsPerPageOptions="[20, 30, 40, 50]"
-      scrollable
-      :loading="isTableLoading"
-      scrollHeight="400px"
-      :virtualScrollerOptions="{
-        itemSize: 44,
-      }"
-      tableStyle="min-width: 50rem"
-    >
-      <Column
-        field="fullName"
-        header="Name"
-        style="width: 20%; font-size: 0.9rem"
-      ></Column>
-      <Column
-        field="type.name"
-        header="Type"
-        style="width: 10%; font-size: 0.9rem"
-      ></Column>
-      <Column
-        field="description"
-        header="Reason for leave"
-        style="width: 30%; font-size: 0.9rem"
-      ></Column>
-      <Column
-        field="departureDate"
-        header="Departure date"
-        style="width: 10%; font-size: 0.9rem"
-      >
-        <template #body="slotProps">
-          {{ moment.parseZone(slotProps.data.departureDate).format('DD/M/yy') }}
-        </template>
-      </Column>
-      <Column
-        field="returnDate"
-        header="Return date"
-        style="width: 10%; font-size: 0.9rem"
-      >
-        <template #body="slotProps">
-          {{ moment.parseZone(slotProps.data.returnDate).format('DD/M/yy') }}
-        </template>
-      </Column>
-      <Column
-        field="status"
-        header="Status"
-        style="width: 10%; font-size: 0.9rem"
-      >
-        <template #body="slotProps">
-          <p
-            :class="[
-              'py-1 px-3 text-xs text-white rounded-sm',
-              { 'bg-orange-400': slotProps.data.status.color === 'orange' },
-              { 'bg-sky-400': slotProps.data.status.color === 'sky' },
-              { 'bg-blue-400': slotProps.data.status.color === 'blue' },
-              { 'bg-emerald-400': slotProps.data.status.color === 'green' },
-              { 'bg-amber-400': slotProps.data.status.color === 'yellow' },
-              { 'bg-fuchsia-400': slotProps.data.status.color === 'violet' },
-              { 'bg-red-400': slotProps.data.status.color === 'red' },
-            ]"
+    <Tabs value="0">
+      <TabList>
+        <Tab value="0">My Leaves</Tab>
+        <Tab v-if="showDepartmentLeaves" value="1">Department Leaves</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel value="0">
+          <DataTable
+            :value="leaveList.personal"
+            paginator
+            :rows="10"
+            :rowsPerPageOptions="[20, 30, 40, 50]"
+            scrollable
+            :loading="isLoading"
+            scrollHeight="400px"
+            :virtualScrollerOptions="{
+              itemSize: 44,
+            }"
+            tableStyle="min-width: 50rem"
           >
-            {{ slotProps.data.status.label }}
-          </p>
-        </template>
-      </Column>
-      <Column header="Actions" style="width: 10%; font-size: 0.9rem">
-        <template #body="slotProps">
-          <span class="space-x-1.5">
-            <p class="relative inline-flex items-center justify-center">
-              <i
-                v-if="slotProps.data.status.level === 1"
-                @click.prevent="
-                  updateStatus(
-                    statusKey(slotProps.data.status.level),
-                    slotProps.data.id
-                  )
-                "
-                class="pi pi-send cursor-pointer hover:text-blue-500 z-50"
-                v-tooltip.top="'Send'"
-              />
+            <Column
+              field="type.name"
+              header="Type"
+              style="width: 20%; font-size: 0.9rem"
+            ></Column>
+            <Column
+              field="description"
+              header="Reason for leave"
+              style="width: 30%; font-size: 0.9rem"
+            ></Column>
+            <Column
+              field="departureDate"
+              header="Depart date"
+              style="width: 15%; font-size: 0.9rem"
+            >
+              <template #body="slotProps">
+                {{
+                  moment
+                    .parseZone(slotProps.data.departureDate)
+                    .format('DD/M/yy')
+                }}
+              </template>
+            </Column>
+            <Column
+              field="returnDate"
+              header="Return date"
+              style="width: 15%; font-size: 0.9rem"
+            >
+              <template #body="slotProps">
+                {{
+                  moment.parseZone(slotProps.data.returnDate).format('DD/M/yy')
+                }}
+              </template>
+            </Column>
+            <Column
+              field="status"
+              header="Status"
+              style="width: 10%; font-size: 0.9rem"
+            >
+              <template #body="slotProps">
+                <p
+                  :class="[
+                    'py-1 px-3 text-xs text-center text-white rounded-sm',
+                    {
+                      'bg-orange-400': slotProps.data.status.color === 'orange',
+                    },
+                    { 'bg-sky-400': slotProps.data.status.color === 'sky' },
+                    { 'bg-blue-400': slotProps.data.status.color === 'blue' },
+                    {
+                      'bg-emerald-400': slotProps.data.status.color === 'green',
+                    },
+                    {
+                      'bg-amber-400': slotProps.data.status.color === 'yellow',
+                    },
+                    {
+                      'bg-violet-400': slotProps.data.status.color === 'violet',
+                    },
+                    { 'bg-red-400': slotProps.data.status.color === 'red' },
+                    {
+                      'bg-fuchsia-400':
+                        slotProps.data.status.color === 'fuchsia',
+                    },
+                  ]"
+                >
+                  {{ slotProps.data.status.label }}
+                </p>
+              </template>
+            </Column>
+            <Column header="Actions" style="width: 10%; font-size: 0.9rem">
+              <template #body="slotProps">
+                <span class="space-x-1.5">
+                  <div
+                    class="relative inline-flex items-center justify-center gap-1.5"
+                  >
+                    <template v-if="slotProps.data.status.level === 1">
+                      <i
+                        @click.prevent="
+                          updateStatus(
+                            slotProps.data.status.level,
+                            slotProps.data.id
+                          )
+                        "
+                        class="pi pi-send cursor-pointer hover:text-blue-500 z-50"
+                        v-tooltip.top="'Send'"
+                      />
+                    </template>
 
-              <i
-                v-if="slotProps.data.status.level === 2"
-                @click.prevent="
-                  updateStatus(
-                    statusKey(slotProps.data.status.level),
-                    slotProps.data.id
-                  )
-                "
-                class="pi pi-check-square cursor-pointer hover:text-blue-500 z-50"
-                v-tooltip.top="'Approve'"
-              />
+                    <template
+                      v-if="[2, 3].includes(slotProps.data.status.level)"
+                    >
+                      <i
+                        @click.prevent="
+                          updateStatus(
+                            slotProps.data.status.level,
+                            slotProps.data.id
+                          )
+                        "
+                        class="pi pi-check-square cursor-pointer hover:text-blue-500 z-50"
+                        v-tooltip.top="'Approve'"
+                      />
 
-              <i
-                v-if="slotProps.data.status.level === 3"
-                @click.prevent="
-                  updateStatus(
-                    statusKey(slotProps.data.status.level),
-                    slotProps.data.id
-                  )
-                "
-                class="pi pi-check-square cursor-pointer hover:text-blue-500 z-50"
-                v-tooltip.top="'Approve'"
-              />
+                      <i
+                        class="pi pi-ban cursor-pointer hover:text-red-500 z-50"
+                        v-tooltip.top="'Reject'"
+                        @click.prevent="toggleReject"
+                      />
+                    </template>
 
-              <i
-                v-if="isLoadingStatusUpdate"
-                class="pi pi-spinner absolute animate-spin text-emerald-500"
-                style="font-size: 1.7rem"
-              />
-            </p>
+                    <Popover ref="reject">
+                      <form
+                        @submit.prevent="updateStatus(6, slotProps.data.id)"
+                        class="w-64 space-y-5"
+                      >
+                        <h5 class="text-sm">
+                          Are you sure you want reject this leave?
+                        </h5>
 
-            <i
-              @click.prevent="editLeave(slotProps.data)"
-              v-tooltip.top="'Edit'"
-              class="cursor-pointer pi pi-pen-to-square hover:text-emerald-500"
-            />
+                        <div class="flex flex-row justify-between">
+                          <Button
+                            type="submit"
+                            label="Submit"
+                            iconPos="right"
+                            :loading="isLoading"
+                            :pt="{
+                              root: 'h-7',
+                              label: 'text-xs',
+                            }"
+                          />
 
-            <p class="relative inline-flex items-center justify-center">
-              <i
-                @click.prevent="deleteLeave(slotProps.data.id)"
-                v-tooltip.top="'Delete'"
-                class="z-50 cursor-pointer pi pi-trash hover:text-red-500"
-              />
+                          <Button
+                            label="Cancel"
+                            iconPos="right"
+                            variant="outlined"
+                            severity="contrast"
+                            :pt="{
+                              root: 'h-7',
+                              label: 'text-xs',
+                            }"
+                            @click.prevent="toggleReject"
+                          />
+                        </div>
+                      </form>
+                    </Popover>
+                  </div>
 
-              <i
-                v-if="isDeleteLoading"
-                class="pi pi-spinner absolute animate-spin text-red-400 translate-x-[0.03rem]"
-                style="font-size: 1.7rem"
-              />
-            </p>
-          </span>
-        </template>
-      </Column>
-    </DataTable>
+                  <template v-if="slotProps.data.status.level === 1">
+                    <i
+                      @click.prevent="editLeave(slotProps.data)"
+                      v-tooltip.top="'Edit'"
+                      class="cursor-pointer pi pi-pen-to-square hover:text-emerald-500"
+                    />
+
+                    <div
+                      class="relative inline-flex items-center justify-center"
+                    >
+                      <i
+                        @click.prevent="deleteLeave(slotProps.data.id)"
+                        v-tooltip.top="'Delete'"
+                        class="z-50 cursor-pointer pi pi-trash hover:text-red-500"
+                      />
+                    </div>
+                  </template>
+                </span>
+              </template>
+            </Column>
+
+            <template #empty>
+              <div class="flex justify-center py-5">
+                <span>
+                  <img
+                    src="/assets/svg/nodata.svg"
+                    class="object-center object-cover w-24"
+                  />
+
+                  <h5 class="text-sm text-center">No data</h5>
+                </span>
+              </div>
+            </template>
+          </DataTable>
+        </TabPanel>
+        <TabPanel v-if="showDepartmentLeaves" value="1">
+          <DataTable
+            :value="leaveList.department"
+            paginator
+            :rows="10"
+            :rowsPerPageOptions="[20, 30, 40, 50]"
+            scrollable
+            :loading="isLoading"
+            scrollHeight="400px"
+            :virtualScrollerOptions="{
+              itemSize: 44,
+            }"
+            tableStyle="min-width: 50rem"
+          >
+            <Column
+              field="fullName"
+              header="Name"
+              style="width: 20%; font-size: 0.9rem"
+            ></Column>
+            <Column
+              field="type.name"
+              header="Type"
+              style="width: 10%; font-size: 0.9rem"
+            ></Column>
+            <Column
+              field="description"
+              header="Reason for leave"
+              style="width: 30%; font-size: 0.9rem"
+            ></Column>
+            <Column
+              field="departureDate"
+              header="Departure date"
+              style="width: 10%; font-size: 0.9rem"
+            >
+              <template #body="slotProps">
+                {{
+                  moment
+                    .parseZone(slotProps.data.departureDate)
+                    .format('DD/M/yy')
+                }}
+              </template>
+            </Column>
+            <Column
+              field="returnDate"
+              header="Return date"
+              style="width: 10%; font-size: 0.9rem"
+            >
+              <template #body="slotProps">
+                {{
+                  moment.parseZone(slotProps.data.returnDate).format('DD/M/yy')
+                }}
+              </template>
+            </Column>
+            <Column
+              field="status"
+              header="Status"
+              style="width: 10%; font-size: 0.9rem"
+            >
+              <template #body="slotProps">
+                <p
+                  :class="[
+                    'py-1 px-3 text-xs text-center text-white rounded-sm',
+                    {
+                      'bg-orange-400': slotProps.data.status.color === 'orange',
+                    },
+                    { 'bg-sky-400': slotProps.data.status.color === 'sky' },
+                    { 'bg-blue-400': slotProps.data.status.color === 'blue' },
+                    {
+                      'bg-emerald-400': slotProps.data.status.color === 'green',
+                    },
+                    {
+                      'bg-amber-400': slotProps.data.status.color === 'yellow',
+                    },
+                    {
+                      'bg-violet-400': slotProps.data.status.color === 'violet',
+                    },
+                    { 'bg-red-400': slotProps.data.status.color === 'red' },
+                    {
+                      'bg-fuchsia-400':
+                        slotProps.data.status.color === 'fuchsia',
+                    },
+                  ]"
+                >
+                  {{ slotProps.data.status.label }}
+                </p>
+              </template>
+            </Column>
+            <Column header="Actions" style="width: 10%; font-size: 0.9rem">
+              <template #body="slotProps">
+                <span class="space-x-1.5">
+                  <div
+                    class="relative inline-flex items-center justify-center gap-1.5"
+                  >
+                    <template v-if="slotProps.data.status.level === 1">
+                      <i
+                        @click.prevent="
+                          updateStatus(
+                            slotProps.data.status.level,
+                            slotProps.data.id
+                          )
+                        "
+                        class="pi pi-send cursor-pointer hover:text-blue-500 z-50"
+                        v-tooltip.top="'Send'"
+                      />
+                    </template>
+
+                    <template
+                      v-if="[2, 3].includes(slotProps.data.status.level)"
+                    >
+                      <i
+                        @click.prevent="
+                          updateStatus(
+                            slotProps.data.status.level,
+                            slotProps.data.id
+                          )
+                        "
+                        class="pi pi-check-square cursor-pointer hover:text-blue-500 z-50"
+                        v-tooltip.top="'Approve'"
+                      />
+
+                      <i
+                        class="pi pi-ban cursor-pointer hover:text-red-500 z-50"
+                        v-tooltip.top="'Reject'"
+                        @click.prevent="toggleReject"
+                      />
+                    </template>
+
+                    <Popover ref="reject">
+                      <form
+                        @submit.prevent="updateStatus(6, slotProps.data.id)"
+                        class="w-64 space-y-5"
+                      >
+                        <h5 class="text-sm">
+                          Are you sure you want reject this leave?
+                        </h5>
+
+                        <div class="flex flex-row justify-between">
+                          <Button
+                            type="submit"
+                            label="Submit"
+                            iconPos="right"
+                            :loading="isLoading"
+                            :pt="{
+                              root: 'h-7',
+                              label: 'text-xs',
+                            }"
+                          />
+
+                          <Button
+                            label="Cancel"
+                            iconPos="right"
+                            variant="outlined"
+                            severity="contrast"
+                            :pt="{
+                              root: 'h-7',
+                              label: 'text-xs',
+                            }"
+                            @click.prevent="toggleReject"
+                          />
+                        </div>
+                      </form>
+                    </Popover>
+                  </div>
+
+                  <template v-if="slotProps.data.status.level === 1">
+                    <i
+                      @click.prevent="editLeave(slotProps.data)"
+                      v-tooltip.top="'Edit'"
+                      class="cursor-pointer pi pi-pen-to-square hover:text-emerald-500"
+                    />
+
+                    <div
+                      class="relative inline-flex items-center justify-center"
+                    >
+                      <i
+                        @click.prevent="deleteLeave(slotProps.data.id)"
+                        v-tooltip.top="'Delete'"
+                        class="z-50 cursor-pointer pi pi-trash hover:text-red-500"
+                      />
+                    </div>
+                  </template>
+                </span>
+              </template>
+            </Column>
+
+            <template #empty>
+              <div class="flex justify-center py-5">
+                <span>
+                  <img
+                    src="/assets/svg/nodata.svg"
+                    class="object-center object-cover w-24"
+                  />
+
+                  <h5 class="text-sm text-center">No data</h5>
+                </span>
+              </div>
+            </template>
+          </DataTable>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
 
     <Dialog v-model:visible="createLeave" modal :header="modalTitle">
       <form @submit.prevent="submit" class="px-3 mt-7 space-y-3 xs:w-96">

@@ -236,9 +236,28 @@ const editUser = user => {
           </span>
         </template>
       </Column>
+
+      <template #empty>
+        <div class="flex justify-center py-5">
+          <span>
+            <img
+              src="/assets/svg/nodata.svg"
+              class="object-center object-cover w-24"
+            />
+
+            <h5 class="text-sm text-center">No data</h5>
+          </span>
+        </div>
+      </template>
     </DataTable>
 
-    <Dialog v-model:visible="createUser" maximizable modal :header="modalTitle">
+    <Dialog
+      v-model:visible="createUser"
+      maximizable
+      modal
+      :header="modalTitle"
+      @hide="closingCreateUserModal"
+    >
       <form @submit.prevent="submit" class="px-3 mt-7 space-y-7 xs:w-96">
         <FloatLabel variant="on">
           <input-text-input

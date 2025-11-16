@@ -6,7 +6,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="h-full p-3 bg-white rounded-lg shadow">
+  <div class="p-3 bg-white rounded-lg shadow">
     <NuxtPage />
   </div>
 </template>

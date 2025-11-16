@@ -146,7 +146,7 @@ const submit = async () => {
             </p>
 
             <div class="space-y-3">
-              <p class="text-center">
+              <!-- <p class="text-center">
                 Do not have an account?
 
                 <nuxt-link
@@ -154,7 +154,7 @@ const submit = async () => {
                   class="text-emerald-500 hover:underline hover:font-semibold"
                   >join us</nuxt-link
                 >
-              </p>
+              </p> -->
 
               <button-primary-button
                 type="submit"
