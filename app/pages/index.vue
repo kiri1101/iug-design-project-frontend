@@ -40,12 +40,10 @@ const submit = async () => {
         body: form.value,
       })
 
-      console.log('login response: ', response)
       authStore.updateAuth(response.data)
       s(response.message)
       return navigateTo('/dashboard')
     } catch ({ status, data }) {
-      console.log('login error: ', status, data)
       switch (status) {
         case 422:
           Object.values(data.errors).map(err => e(err[0]))

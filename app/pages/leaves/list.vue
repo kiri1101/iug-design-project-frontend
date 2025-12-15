@@ -48,6 +48,13 @@ const showDepartmentLeaves = computed(() => {
   return output
 })
 
+const canGrantLeave = computed(
+  () =>
+    authStore.authUser.user.role.filter(
+      role => role?.slug === 'dhr' || role?.slug === 'ceo'
+    ).length > 0
+)
+
 const toggleReject = event => reject.value.toggle(event)
 
 const setReturnDateInputMinVal = () =>
@@ -85,11 +92,8 @@ const getLeaves = async () => {
   try {
     const response = await $apiFetch(config.public.leave.list)
 
-    console.log('leaves list: ', response)
     leaveList.value = response.data.leaves
   } catch ({ status, data }) {
-    console.log('leaves list error: ', data, status)
-
     switch (status) {
       case 422:
         Object.values(data.errors).map(err => e(err[0]))
@@ -105,15 +109,6 @@ const getLeaves = async () => {
 }
 
 const submit = async () => {
-  // let date = moment(form.value.departureDate).format()
-  // console.log('departure date: ', form.value.departureDate)
-  // console.log('utc departure date: ', date)
-  // console.log('parsed departure date: ', moment.parseZone(date).format())
-  // console.log(
-  //   'javascript parsed departure date: ',
-  //   moment.parseZone(date).toDate()
-  // )
-
   let link = isUpdatingLeave.value
     ? config.public.leave.edit.replace(':leave', chosenLeave.value.id)
     : config.public.leave.store
@@ -130,7 +125,6 @@ const submit = async () => {
       },
     })
 
-    console.log('leave update: ', response)
     s(response.message)
     closingCreateLeaveModal()
     if (isUpdatingLeave.value) {
@@ -138,7 +132,6 @@ const submit = async () => {
     }
     getLeaves()
   } catch ({ status, data }) {
-    console.log('leave update error: ', status, data)
     switch (status) {
       case 422:
         Object.values(data.errors).map(err => e(err[0]))
@@ -166,7 +159,6 @@ const deleteLeave = async leaveId => {
     s(response.message)
     getLeaves()
   } catch ({ status, data }) {
-    console.log('leave delete error: ', status, data)
     switch (status) {
       case 422:
         Object.values(data.errors).map(err => e(err[0]))
@@ -197,7 +189,6 @@ const updateStatus = async (status, leaveId) => {
     s(response.message)
     getLeaves()
   } catch ({ status, data }) {
-    console.log('update leave status error: ', status, data)
     switch (status) {
       case 422:
         Object.values(data.errors).map(err => e(err[0]))
@@ -218,7 +209,6 @@ const editLeave = leave => {
   form.value.departureDate = moment(leave.departureDate).toDate()
   form.value.returnDate = moment(leave.returnDate).toDate()
 
-  console.log('leave: ', form.value)
   chosenLeave.value = leave
   changeLeaveModalTitle()
   openingCreateLeaveModal()
@@ -320,7 +310,7 @@ const editLeave = leave => {
               <template #body="slotProps">
                 <p
                   :class="[
-                    'py-1 px-3 text-xs text-center text-white rounded-sm',
+                    'py-1 px-3 text-xs ex text-center text-white rounded-sm',
                     {
                       'bg-orange-400': slotProps.data.status.color === 'orange',
                     },
@@ -351,95 +341,31 @@ const editLeave = leave => {
                 <span class="space-x-1.5">
                   <div
                     class="relative inline-flex items-center justify-center gap-1.5"
+                    v-if="slotProps.data.status.level === 1"
                   >
-                    <template v-if="slotProps.data.status.level === 1">
-                      <i
-                        @click.prevent="
-                          updateStatus(
-                            slotProps.data.status.level,
-                            slotProps.data.id
-                          )
-                        "
-                        class="pi pi-send cursor-pointer hover:text-blue-500 z-50"
-                        v-tooltip.top="'Send'"
-                      />
-                    </template>
+                    <i
+                      @click.prevent="
+                        updateStatus(
+                          slotProps.data.status.level,
+                          slotProps.data.id
+                        )
+                      "
+                      class="pi pi-send cursor-pointer hover:text-blue-500 z-50"
+                      v-tooltip.top="'Send'"
+                    />
 
-                    <template
-                      v-if="[2, 3].includes(slotProps.data.status.level)"
-                    >
-                      <i
-                        @click.prevent="
-                          updateStatus(
-                            slotProps.data.status.level,
-                            slotProps.data.id
-                          )
-                        "
-                        class="pi pi-check-square cursor-pointer hover:text-blue-500 z-50"
-                        v-tooltip.top="'Approve'"
-                      />
-
-                      <i
-                        class="pi pi-ban cursor-pointer hover:text-red-500 z-50"
-                        v-tooltip.top="'Reject'"
-                        @click.prevent="toggleReject"
-                      />
-                    </template>
-
-                    <Popover ref="reject">
-                      <form
-                        @submit.prevent="updateStatus(6, slotProps.data.id)"
-                        class="w-64 space-y-5"
-                      >
-                        <h5 class="text-sm">
-                          Are you sure you want reject this leave?
-                        </h5>
-
-                        <div class="flex flex-row justify-between">
-                          <Button
-                            type="submit"
-                            label="Submit"
-                            iconPos="right"
-                            :loading="isLoading"
-                            :pt="{
-                              root: 'h-7',
-                              label: 'text-xs',
-                            }"
-                          />
-
-                          <Button
-                            label="Cancel"
-                            iconPos="right"
-                            variant="outlined"
-                            severity="contrast"
-                            :pt="{
-                              root: 'h-7',
-                              label: 'text-xs',
-                            }"
-                            @click.prevent="toggleReject"
-                          />
-                        </div>
-                      </form>
-                    </Popover>
-                  </div>
-
-                  <template v-if="slotProps.data.status.level === 1">
                     <i
                       @click.prevent="editLeave(slotProps.data)"
                       v-tooltip.top="'Edit'"
                       class="cursor-pointer pi pi-pen-to-square hover:text-emerald-500"
                     />
 
-                    <div
-                      class="relative inline-flex items-center justify-center"
-                    >
-                      <i
-                        @click.prevent="deleteLeave(slotProps.data.id)"
-                        v-tooltip.top="'Delete'"
-                        class="z-50 cursor-pointer pi pi-trash hover:text-red-500"
-                      />
-                    </div>
-                  </template>
+                    <i
+                      @click.prevent="deleteLeave(slotProps.data.id)"
+                      v-tooltip.top="'Delete'"
+                      class="z-50 cursor-pointer pi pi-trash hover:text-red-500"
+                    />
+                  </div>
                 </span>
               </template>
             </Column>
@@ -564,8 +490,27 @@ const editLeave = leave => {
                       />
                     </template>
 
+                    <template v-if="slotProps.data.status.level === 2">
+                      <i
+                        @click.prevent="
+                          updateStatus(
+                            slotProps.data.status.level,
+                            slotProps.data.id
+                          )
+                        "
+                        class="pi pi-check-square cursor-pointer hover:text-blue-500 z-50"
+                        v-tooltip.top="'Approve'"
+                      />
+
+                      <i
+                        class="pi pi-ban cursor-pointer hover:text-red-500 z-50"
+                        v-tooltip.top="'Reject'"
+                        @click.prevent="toggleReject"
+                      />
+                    </template>
+
                     <template
-                      v-if="[2, 3].includes(slotProps.data.status.level)"
+                      v-if="slotProps.data.status.level === 3 && canGrantLeave"
                     >
                       <i
                         @click.prevent="

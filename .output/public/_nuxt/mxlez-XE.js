@@ -1,1 +1,0 @@
-import{R as s,S as o,n as a}from"#entry";const h=s((r,e)=>{if(o("auth",{default:()=>({authUser:{token:"",settings:{},user:{role:[]}}})}).value.authUser.user.role.filter(t=>["ceo","dhr"].includes(t.slug)).length===0)return console.log("cannot progress: ",e.name),a("/dashboard")});export{h as default};

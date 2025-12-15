@@ -45,10 +45,9 @@ const logout = async () => {
       method: 'POST',
     })
 
-    console.log('logout response: ', response)
     s(response.message)
   } catch ({ status, data }) {
-    console.log('error code during logout: ', data)
+    //
   } finally {
     isLoading.value = false
     authStore.resetAuth()
@@ -96,9 +95,17 @@ const logout = async () => {
             <Popover ref="menu">
               <div class="w-52">
                 <ul class="space-y-1">
-                  <li class="p-2 border-b border-gray-300 capitalize">
-                    <i class="mr-1 pi pi-user" />
-                    {{ authUser?.user.fullName }}
+                  <li
+                    class="flex items-center p-2 border-b border-gray-300 capitalize"
+                  >
+                    <i class="mr-2 pi pi-user" />
+
+                    <div>
+                      <h5>{{ authUser?.user.fullName }}</h5>
+                      <h5 class="text-xs">
+                        {{ authUser?.user.role[0]?.name }}
+                      </h5>
+                    </div>
                   </li>
                   <li
                     class="flex items-center justify-between p-2 text-gray-900 transition duration-150 ease-linear rounded cursor-pointer hover:bg-emerald-400 hover:text-gray-100"

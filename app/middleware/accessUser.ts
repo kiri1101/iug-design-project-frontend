@@ -23,7 +23,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     authUserRoles.filter((role: Role) => ['ceo', 'dhr'].includes(role.slug))
       .length === 0
   ) {
-    console.log('cannot progress: ', from.name)
     return navigateTo('/dashboard')
   }
 })

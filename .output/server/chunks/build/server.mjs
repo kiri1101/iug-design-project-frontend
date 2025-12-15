@@ -508,7 +508,7 @@ const _routes = [
     name: "index",
     path: "/",
     meta: { "middleware": ["guest"] },
-    component: () => import('./index-BTdwAZ_s.mjs')
+    component: () => import('./index-B0UtWDpZ.mjs')
   },
   {
     name: "users",
@@ -519,7 +519,7 @@ const _routes = [
       {
         name: "users-list",
         path: "list",
-        component: () => import('./list-CqdqErZ6.mjs')
+        component: () => import('./list-l8XJooYV.mjs')
       }
     ]
   },
@@ -532,7 +532,7 @@ const _routes = [
       {
         name: "leaves-list",
         path: "list",
-        component: () => import('./list-DFHh5Awt.mjs')
+        component: () => import('./list-C2pYg4qf.mjs')
       }
     ]
   },
@@ -540,13 +540,13 @@ const _routes = [
     name: "signup",
     path: "/signup",
     meta: { "middleware": ["guest"] },
-    component: () => import('./signup-DeZdnJY_.mjs')
+    component: () => import('./signup-DQ76CECn.mjs')
   },
   {
     name: "dashboard",
     path: "/dashboard",
     meta: { ...__nuxt_page_meta || {}, ...{ "middleware": ["auth"] } },
-    component: () => import('./dashboard-BL-TsKeH.mjs')
+    component: () => import('./dashboard-BLu5b1y1.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -667,7 +667,7 @@ const globalMiddleware = [
   manifest_45route_45rule
 ];
 const namedMiddleware = {
-  "access-user": () => import('./accessUser-CBXyrSsX.mjs'),
+  "access-user": () => import('./accessUser-ClPaf_y7.mjs'),
   auth: () => import('./auth-BuswaO7v.mjs'),
   guest: () => import('./guest-Cz9zLRs8.mjs')
 };
@@ -3761,7 +3761,7 @@ const __nuxt_component_0$1 = defineComponent({
 });
 const layouts = {
   default: defineAsyncComponent(() => import('./default-DoO5CY2G.mjs').then((m) => m.default || m)),
-  master: defineAsyncComponent(() => import('./master-CWMkB_bv.mjs').then((m) => m.default || m))
+  master: defineAsyncComponent(() => import('./master-COcmAK5v.mjs').then((m) => m.default || m))
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",

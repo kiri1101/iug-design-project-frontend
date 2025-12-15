@@ -64,11 +64,8 @@ const getUsers = async () => {
   try {
     const response = await $apiFetch(config.public.user.list)
 
-    console.log('users list: ', response)
     userList.value = response.data.users
   } catch ({ status, data }) {
-    console.log('users list error: ', data, status)
-
     switch (status) {
       case 422:
         Object.values(data.errors).map(err => e(err[0]))
@@ -95,7 +92,6 @@ const submit = async () => {
       body: form.value,
     })
 
-    console.log('user store: ', response)
     s(response.message)
     closingCreateUserModal()
     if (isUpdatingUser.value) {
@@ -103,7 +99,6 @@ const submit = async () => {
     }
     getUsers()
   } catch ({ status, data }) {
-    console.log('user store error: ', status, data)
     switch (status) {
       case 422:
         Object.values(data.errors).map(err => e(err[0]))
@@ -131,7 +126,6 @@ const deleteUser = async userId => {
     s(response.message)
     getUsers()
   } catch ({ status, data }) {
-    console.log('user delete error: ', status, data)
     switch (status) {
       case 422:
         Object.values(data.errors).map(err => e(err[0]))
@@ -153,7 +147,7 @@ const editUser = user => {
   form.value.phoneNumber = user.phoneNumber
   form.value.position = user.role[0]
   form.value.department = user.department
-  console.log(user, form.value)
+
   chosenUser.value = user
   changeUserModalTitle()
   openingCreateUserModal()

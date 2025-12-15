@@ -1,0 +1,1 @@
+import{R as t,S as s,n as r}from"#entry";const n=t((a,o)=>{if(s("auth",{default:()=>({authUser:{token:"",settings:{},user:{role:[]}}})}).value.authUser.user.role.filter(e=>["ceo","dhr"].includes(e.slug)).length===0)return r("/dashboard")});export{n as default};
