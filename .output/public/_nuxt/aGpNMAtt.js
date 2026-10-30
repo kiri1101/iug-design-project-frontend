@@ -1,1 +1,0 @@
-import{bp as e,bq as o,r as a}from"#entry";const u=e("notification",()=>{const t=a([]);return{list:t,setList:s=>t.value=s,updateList:s=>t.value.push(s)}},{persist:{storage:o.localStorage()}});export{u};
